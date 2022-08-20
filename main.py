@@ -3,10 +3,7 @@ import pandas as pd
 
 from string_search.string_match import string_match
 
-def job():
-    input = pd.read_csv('string_search/test_files/3q_semrush.csv')
-    match = pd.read_csv('string_search/test_files/3q_test_bigrams.csv')
-
+def job(input, match):
     # list comprehension on string_match() to check for matches in input dataframe vs each row in match dataframe
     matching_phases = [string_match(input, 'Keyword', i) for i in match['match']]
 
@@ -19,8 +16,11 @@ def job():
 
 
 if __name__ == '__main__':
+    input = pd.read_csv('string_search/test_files/3q_semrush.csv')
+    match = pd.read_csv('string_search/test_files/3q_test_bigrams.csv')
+
     start_time = time.time()
-    match_exist, all_data = job()
+    match_exist, all_data = job(input, match)
     end_time = time.time()
     print("Time elapsed: {} seconds".format(round(end_time - start_time),2))
     print("match_exist.shape: {}".format(match_exist.shape))
