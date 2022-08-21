@@ -32,10 +32,10 @@ def string_match(full_vals, full_vals_col_name , matching_phrase, type="Default"
         full_vals['match_exist'] = [kmp_v2(str, matching_phrase) for str in full_vals[full_vals_col_name]] # using KMP from John Lekberg - https://johnlekberg.com/blog/2020-11-15-string-search.html
     
     elif type == "BM":
-        full_vals['match_exist'] = [(matching_phrase in str) for str in full_vals[full_vals_col_name]] # 2 Using Boyer-Moore
+        full_vals['match_exist'] = [(matching_phrase in str) for str in full_vals[full_vals_col_name]] # 2 Using Boyer-Moore - https://stackoverflow.com/questions/12656160/what-are-the-main-differences-between-the-knuth-morris-pratt-and-boyer-moore-sea
     
     elif type == "AHOCORASICK":
-        full_vals['match_exist'] = using_ahocorasick(pd.Series(full_vals[full_vals_col_name]), matching_phrase) # 3 Using ahocorasick library
+        full_vals['match_exist'] = using_ahocorasick(pd.Series(full_vals[full_vals_col_name]), matching_phrase) # 3 Using ahocorasick library - https://www.geeksforgeeks.org/python-program-for-kmp-algorithm-for-pattern-searching-2/
     
     full_vals['match_phrase'] = matching_phrase # add matching phrase to the dataframe
     
