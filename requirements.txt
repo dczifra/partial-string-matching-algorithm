@@ -1,3 +1,5 @@
 # Data Analysis
 pandas==1.4.2
 inflect==5.6.0 # for inflect.singularize()
+
+pyahocorasick==1.4.4

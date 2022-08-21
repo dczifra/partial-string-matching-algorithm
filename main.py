@@ -3,26 +3,53 @@ import pandas as pd
 
 from string_search.string_match import string_match
 
-def job(input, match):
-    # list comprehension on string_match() to check for matches in input dataframe vs each row in match dataframe
-    matching_phases = [string_match(input, 'Keyword', i) for i in match['match']]
-
-    all_data = pd.concat(matching_phases)
-
-    # print where matches are found
-    match_exist = all_data[all_data['match_exist'] == True]
+def job(input, match):    
+    #DEFAULT IMPLEMENTATION
+    start_time = time.time()
+    matching_phrases = [string_match(input, 'Keyword', i) for i in match['match']]
+    end_time = time.time()
+    print("Default implementation: {}".format(end_time - start_time))
     
-    return match_exist, all_data
+    df = pd.concat(matching_phrases)
+    print("Default implementation shape: {}".format(df.shape))
+
+    # BOYER-MOORE - https://stackoverflow.com/questions/12656160/what-are-the-main-differences-between-the-knuth-morris-pratt-and-boyer-moore-sea
+    start_time = time.time()
+    matching_phrases = [string_match(input, 'Keyword', i, type="BM") for i in match['match']]
+    end_time = time.time()
+    print("Boyer-Moore: {}".format(end_time - start_time))
+    
+    df = pd.concat(matching_phrases)
+    print("Boyer-Moore shape: {}".format(df.shape))
+
+    
+    # AHOCORASICK - https://pypi.org/project/pyahocorasick/
+    start_time = time.time()
+    matching_phrases = [string_match(input, 'Keyword', i, type="AHOCORASICK") for i in match['match']]
+    end_time = time.time()
+    print("AHOCORASICK: {}".format(end_time - start_time))
+
+    df = pd.concat(matching_phrases)
+    print("AHOCORASICK shape: {}".format(df.shape))
+
+    # KPM VERSION 1 - https://www.geeksforgeeks.org/python-program-for-kmp-algorithm-for-pattern-searching-2/ 
+    start_time = time.time()
+    matching_phrases = [string_match(input, 'Keyword', i, type="KMP1") for i in match['match']]
+    end_time = time.time()
+    print("KMP version 1: {}".format(end_time - start_time))
+    
+    df = pd.concat(matching_phrases)
+    print("KPM1 shape: {}".format(df.shape))
+    
+    # all_data = pd.concat(matching_phases) # concat to get single dataframe
+    # match_exist = all_data[all_data['match_exist'] == True] # get rows where match_exist is true
+    
+    # return match_exist, all_data
 
 
 if __name__ == '__main__':
     input = pd.read_csv('string_search/test_files/3q_semrush.csv')
     match = pd.read_csv('string_search/test_files/3q_test_bigrams.csv')
 
-    start_time = time.time()
-    match_exist, all_data = job(input, match)
-    end_time = time.time()
-    print("Time elapsed: {} seconds".format(round(end_time - start_time),2))
-    print("match_exist.shape: {}".format(match_exist.shape))
-    print("all_data.shape: {}".format(all_data.shape))
-    print("match_exist[['Keyword', 'match_phrase']]: \n{}".format(match_exist[['Keyword', 'match_phrase']].head(5)))
+    # match_exist, all_data = job(input, match)
+    job(input, match)
