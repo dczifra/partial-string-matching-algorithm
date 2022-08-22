@@ -3,9 +3,12 @@ import pandas as pd
 
 from string_search.string_match import string_match
 
-def job(input, match):    
-    #DEFAULT IMPLEMENTATION
+def job(input, match):
     col = ";".join(list(input["Keyword"].str.lower()))
+    input['Keyword'] = input["Keyword"].str.lower()
+    match['match'] = match['match'].str.lower()
+
+    #DEFAULT IMPLEMENTATION
     start_time = time.time()
     matching_phrases = [string_match(input, 'Keyword', i) for i in match['match']]
     end_time = time.time()
@@ -44,7 +47,7 @@ def job(input, match):
 
     # KPM VERSION 1 - https://www.geeksforgeeks.org/python-program-for-kmp-algorithm-for-pattern-searching-2/ 
     start_time = time.time()
-    matching_phrases = [string_match(input, 'Keyword', i, type="KMP1") for i in match['match']]
+    #matching_phrases = [string_match(input, 'Keyword', i, type="KMP1") for i in match['match']]
     end_time = time.time()
     print("KMP version 1: {}".format(end_time - start_time))
     
