@@ -25,8 +25,8 @@ int main(){
     while(std::getline (patt_file, line, '\n')){
         patterns.push_back(line);
     }
-    std::cout<<"Texts: "<<texts[0]<<"; "<<texts[1]<<"\n";
-    std::cout<<"Patterns: "<<patterns[0]<<"; "<<patterns[1]<<"\n\n";
+    //std::cout<<"Texts: "<<texts[0]<<"; "<<texts[1]<<"\n";
+    //std::cout<<"Patterns: "<<patterns[0]<<"; "<<patterns[1]<<"\n\n";
 
     // === Init match mtx ===
     std::vector<std::vector<bool>> mtx(patterns.size(), std::vector<bool>(texts.size()));
@@ -36,9 +36,10 @@ int main(){
         for(int t=0;t<texts.size();t++){
             if(texts[t].find(patterns[p]) != std::string::npos){
                 mtx[p][t] = 1;
-
-                if(p==0 && sum++<5) std::cout<<patterns[p]<<" ==> "<<texts[t]<<std::endl;
+                //if(p==0 && sum++<5) std::cout<<patterns[p]<<" ==> "<<texts[t]<<std::endl;
+                std::cout<<1;
             }
+            else std::cout<<0;
         }
     }
 
