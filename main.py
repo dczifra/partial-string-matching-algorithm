@@ -47,7 +47,7 @@ def job(input, match):
 
     # KPM VERSION 1 - https://www.geeksforgeeks.org/python-program-for-kmp-algorithm-for-pattern-searching-2/ 
     start_time = time.time()
-    #matching_phrases = [string_match(input, 'Keyword', i, type="KMP1") for i in match['match']]
+    matching_phrases = [string_match(input, 'Keyword', i, type="KMP1") for i in match['match']]
     end_time = time.time()
     print("KMP version 1: {}".format(end_time - start_time))
     
